@@ -172,6 +172,7 @@ const roundsData = [
         description: "Đăng ký tham gia cuộc thi theo đội 3 thành viên. Các đội đăng ký qua form của BTC.",
         date: "05/11 - 18/11/2025",
         participants: "Không giới hạn",
+        imageUrl: "src/cacvongthi/vongthi_1reg.png" 
     },
     {
         number: "02",
@@ -179,6 +180,7 @@ const roundsData = [
         description: "Thí sinh nộp bài thiết kế theo yêu cầu từ BTC. Ban giám khảo sẽ chọn ra 30 đội xuất sắc nhất để vào vòng bán kết.",
         date: "11/11 - 21/11/2025",
         participants: "Top 30",
+        imageUrl: "src/cacvongthi/vongthi_2vongloai.png" 
     },
     {
         number: "03",
@@ -186,6 +188,7 @@ const roundsData = [
         description: "30 đội được chọn sẽ tham gia workshop và phát triển dự án UI/UX hoàn chỉnh. Nộp bài thi theo yêu cầu của BTC.",
         date: "22/11 - 28/11/2025",
         participants: "Top 10",
+        imageUrl: "src/cacvongthi/vongthi_3banket.png" 
     },
     {
         number: "04",
@@ -193,6 +196,7 @@ const roundsData = [
         description: "10 đội xuất sắc nhất sẽ trình bày dự án và thực hiện thử thách trực tiếp trước Ban giám khảo.",
         date: "06/12/2025",
         participants: "Ai sẽ là Quán quân ?",
+        imageUrl: "src/cacvongthi/vongthi_4chungket.png" 
     },
 ];
 
@@ -202,10 +206,20 @@ const carouselDots = document.getElementById('carouselDots');
 const carouselPrev = document.getElementById('carouselPrev');
 const carouselNext = document.getElementById('carouselNext');
 
+// Hàm hiển thị Lightbox
+function showLightbox(imageUrl) {
+    if (lightbox && lightboxImage) {
+        lightboxImage.src = imageUrl;
+        lightbox.classList.add('active');
+    }
+}
+
+// Hàm render và gắn sự kiện
 function renderCarousel() {
     if (!carouselTrack) return;
     
-    carouselTrack.innerHTML = roundsData.map(round => `
+    // 1. Thay thế <span>${round.participants}</span> bằng thẻ <a>
+    carouselTrack.innerHTML = roundsData.map((round, index) => `
         <div class="carousel-slide">
             <div class="round-card">
                 <div class="round-number">${round.number}</div>
@@ -225,12 +239,25 @@ function renderCarousel() {
                             <circle cx="9" cy="7" r="4"/>
                             <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
                         </svg>
-                        <span>${round.participants}</span>
+                        <a href="#" class="view-detail-link nav-link" data-image-url="${round.imageUrl}">Xem chi tiết</a>
                     </div>
                 </div>
             </div>
         </div>
     `).join('');
+
+    // 2. Gắn sự kiện click cho các thẻ "xem chi tiết"
+    const viewDetailLinks = carouselTrack.querySelectorAll('.view-detail-link');
+    viewDetailLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault(); // Ngăn chặn hành động mặc định của thẻ <a>
+            const imageUrl = e.currentTarget.getAttribute('data-image-url');
+            showLightbox(imageUrl); // Gọi hàm hiển thị lightbox
+        });
+    });
+
+    // ... (Thêm code logic carousel khác ở đây nếu cần, ví dụ: updateDots, updateCarousel)
+
     
     carouselDots.innerHTML = roundsData.map((_, index) => `
         <div class="carousel-dot ${index === currentSlide ? 'active' : ''}" data-index="${index}"></div>
@@ -347,61 +374,61 @@ const galleryData = [
         category: "workshop",
     },
     {
-        id: 7,
+        id: 1,
         url: "src/warmup2025/IMG_6795.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 8,
+        id: 1,
         url: "src/warmup2025/IMG_6935.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 9,
+        id: 1,
         url: "src/warmup2025/IMG_6945.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 10,
+        id: 1,
         url: "src/warmup2025/IMG_7106.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 11,
+        id: 1,
         url: "src/warmup2025/IMG_7216.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 12,
+        id: 1,
         url: "src/warmup2025/IMG_7085.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 13,
+        id: 1,
         url: "src/warmup2025/IMG_7471.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 14,
+        id: 1,
         url: "src/warmup2025/IMG_7499.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 15,
+        id: 1,
         url: "src/warmup2025/IMG_7702.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
     {
-        id: 16,
+        id: 1,
         url: "src/warmup2025/IMG_7566.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
@@ -428,6 +455,18 @@ const galleryData = [
     {
         id: 5,
         url: "src/warmup2025/IMG_7777.jpg",
+        alt: "Warm-up UI/UX NextGen Interface 2025",
+        category: "workshop",
+    },
+    {
+        id: 5,
+        url: "src/warmup2025/IMG_7793.jpg",
+        alt: "Warm-up UI/UX NextGen Interface 2025",
+        category: "workshop",
+    },
+    {
+        id: 5,
+        url: "src/warmup2025/IMG_7794.jpg",
         alt: "Warm-up UI/UX NextGen Interface 2025",
         category: "workshop",
     },
